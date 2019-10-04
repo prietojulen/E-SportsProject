@@ -6,6 +6,8 @@
 package vistas;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import main.MainEsports;
@@ -20,9 +22,10 @@ public class VentanaRegistroUsuarios extends javax.swing.JFrame {
      * Creates new form VentanaRegistroUsuarios
      */
     public VentanaRegistroUsuarios() {
+        setUndecorated(true);
         initComponents();
-        setLocationRelativeTo(null);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setAlwaysOnTop(rootPaneCheckingEnabled);
+        setExtendedState(MAXIMIZED_BOTH);
         panelOpaco.setBackground(new Color(5,0,25,190));
     }
 
@@ -144,11 +147,15 @@ public class VentanaRegistroUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        /**
-         * Si el usuario pulsa este botón se le devuelve a la pagina de LogIn
-         */
-        this.dispose();
-        ControladorVista.mostrarLogin();
+        try {
+            /**
+             * Si el usuario pulsa este botón se le devuelve a la pagina de LogIn
+             */
+            this.dispose();
+            ControladorVista.mostrarLogin();
+        } catch (Exception ex) {
+            Logger.getLogger(VentanaRegistroUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarActionPerformed
@@ -164,10 +171,9 @@ public class VentanaRegistroUsuarios extends javax.swing.JFrame {
             
             
             if(insercion > 0){
-                JOptionPane.showMessageDialog(this,"Linea insertada correctamente");
-                tfNombre.setText("");
-                tfPassword.setText(""); 
-                tfRepeatPassword.setText("");
+                JOptionPane.showMessageDialog(this,"Usuario registrado correctamente");
+                this.dispose();
+                ControladorVista.mostrarLogin();
             }else{
                 JOptionPane.showMessageDialog(this,"ERROR AL INSERTAR");
             }

@@ -25,8 +25,16 @@ public class JugadorDB {
     private static ArrayList<Jugador> listaJugador;
     private static Equipo oEquipo;
     
-
-    public static boolean insertarJugadores(Jugador oJugador) throws SQLException{
+    /**
+     * con este metodo insertamos un jugador en la bd
+     * @param oJugador objeto jugador 
+     * @return retornamos un boolean para controlar la insert
+     * @throws SQLException  controlamos las excepciones por si hubiese algun tipo de error
+     */
+    public static boolean insertarJugadores(Jugador oJugador) throws SQLException, Exception{
+        
+        GenericoDB.conectar();
+        
         String plantilla = "Insert into jugador(nombre, apellido, nickname, posicion, sueldo, titularidad, equipo_id_equipo) values(?,?,?,?,?,?,?)";
         sentenciaPre = GenericoDB.getCon().prepareStatement(plantilla);
         
@@ -45,9 +53,16 @@ public class JugadorDB {
         
         int insercion = sentenciaPre.executeUpdate();
         
+        GenericoDB.cerrarCon();
         return insercion == 1;
     }
-
+    /**
+     * Con este metodo consultamos un jugador
+     * @param nick nickname del jugador a buscar(String)
+     * @return retornamos un objeto del jugador
+     * @throws SQLException controlamos las excepciones por si hubiese algun tipo de error
+     * @throws Exception controlamos las excepciones por si hubiese algun tipo de error
+     */
     public static Jugador consultarJugador(String nick) throws SQLException, Exception{
  
         GenericoDB.conectar();
@@ -76,22 +91,37 @@ public class JugadorDB {
          GenericoDB.cerrarCon();
          return oJugador;
     }
-    
-    public static Jugador modificarJugador(String nickname,int sueldo, boolean titularidad,String posicion) throws SQLException{
+    /**
+     * Con este metodo actualizamos los datos de un jugaor
+     * @param nickname nickname del jugador(String)
+     * @param sueldo nuevo sueldo(int)
+     * @param titularidad nueva posicion(boolean)
+     * @param posicion nueva posicion(String)
+     * @return retornamos el objeto
+     * @throws SQLException controlamos las excepciones por si hubiese algun tipo de error
+     */
+    public static boolean modificarJugador(String nickname,int sueldo, boolean titularidad,String posicion, String nicknameAntiguo) throws SQLException, Exception{
         GenericoDB.conectar();
-        String plantilla = "update jugador set NICKNAME = ?, SUELDO = ?, TITULARIDAD = ?, POSICION = ? ";
+        String plantilla = "update jugador set NICKNAME = ?, SUELDO = ?, TITULARIDAD = ?, POSICION = ? where nickname = ?";
         sentenciaPre = GenericoDB.getCon().prepareStatement(plantilla);
         sentenciaPre.setString(1, nickname);
         sentenciaPre.setInt(2, sueldo);
         sentenciaPre.setBoolean(3, titularidad);
         sentenciaPre.setString(4, posicion);
+        sentenciaPre.setString(5, nicknameAntiguo);
 
         Jugador oJugador = new Jugador();
-        resultado = sentenciaPre.executeQuery();
-        // duda de que hacer ahora
-          
-    return null; //cambiar
+        int update = sentenciaPre.executeUpdate();
+        GenericoDB.cerrarCon();
+        
+        return update == 1;  
 }
+    /**
+     * con este metodo damos de baja un jugador
+     * @param nickname nickname del jugador a borrar(String)
+     * @throws SQLException controlamos las excepciones por si hubiese algun tipo de error
+     * @throws Exception controlamos las excepciones por si hubiese algun tipo de error
+     */
 public static void darBajaJugador(String nickname) throws SQLException, Exception{
     
     GenericoDB.conectar();
@@ -125,7 +155,13 @@ public static void darBajaJugador(String nickname) throws SQLException, Exceptio
 //}
 //        return null;
 //}
-
+/**
+ * Con este metodo consultamos el equipo al que pertenece el jugador
+ * @param idEquipo id del equipo
+ * @return retornamos un arraylist de jugador 
+ * @throws SQLException controlamos las excepciones por si hubiese algun tipo de error
+ * @throws Exception controlamos las excepciones por si hubiese algun tipo de error
+ */
 public static ArrayList<Jugador> consultarJugadorDelEquipo(int idEquipo) throws SQLException, Exception{
     
     GenericoDB.conectar();

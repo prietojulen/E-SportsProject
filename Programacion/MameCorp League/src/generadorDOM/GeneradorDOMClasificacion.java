@@ -29,7 +29,7 @@ public class GeneradorDOMClasificacion {
     private int ranking = 1;
     
     public static void main(String args[]) throws Exception {
-        System.out.println("--- DOM (escritura) ---\n");
+        System.out.println("--- DOM Clasificacion (escritura) ---\n");
         new GeneradorDOMClasificacion().run();
     }
     
@@ -81,7 +81,7 @@ public class GeneradorDOMClasificacion {
         
         
         Element raiz = dom.createElement("clasificacion");
-        raiz.setAttribute("id", siguienteJornada.toString());
+        raiz.setAttribute("fecha_actualizado", siguienteJornada.toString());
         dom.appendChild(raiz);
         
         //<equipos>

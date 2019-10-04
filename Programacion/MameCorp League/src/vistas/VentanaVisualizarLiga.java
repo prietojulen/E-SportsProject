@@ -6,11 +6,13 @@
 package vistas;
 
 import java.awt.Color;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.MainEsports;
 import modelo.Equipo;
+import parserDOM.ParserDomClasificacion;
 
 /**
  *
@@ -300,7 +302,7 @@ public class VentanaVisualizarLiga extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lEquipo4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lPuntos4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(panelOpacoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lEquipo5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,11 +318,11 @@ public class VentanaVisualizarLiga extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelOpaco);
-        panelOpaco.setBounds(660, 180, 610, 700);
+        panelOpaco.setBounds(660, 100, 610, 700);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Imgs/ImgLiga/FondoClasificacion.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1950, 1080);
+        jLabel1.setBounds(0, 0, 1940, 1080);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -331,8 +333,10 @@ public class VentanaVisualizarLiga extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
     
     private void getClasificacion() throws Exception{
-        listaEquipos = MainEsports.getClasificacion();
- 
+        //listaEquipos = MainEsports.getClasificacion();
+        
+        listaEquipos = MainEsports.getRanking();
+                
         lEquipo1.setText(listaEquipos.get(0).getNombre().toUpperCase());
         lPuntos1.setText(String.valueOf(listaEquipos.get(0).getPuntos()));
         lEquipo2.setText(listaEquipos.get(1).getNombre().toUpperCase());

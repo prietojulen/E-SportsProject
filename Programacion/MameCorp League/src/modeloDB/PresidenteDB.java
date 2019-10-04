@@ -24,11 +24,14 @@ public class PresidenteDB {
      private static ArrayList<Presidente> listaPresidentes;
      
 
-
-          public static int insertarPresi(Presidente oPresidente)throws Exception{
-
-
-   GenericoDB.conectar();
+/**
+ * Con este metodo insertamos un presidente
+ * @param oPresidente recibimos un objeto
+ * @return retornamos el numero de filas afectadas
+ * @throws Exception controlamos las excepciones por si hubiese algun tipo de error
+ */
+    public static int insertarPresi(Presidente oPresidente)throws Exception{
+        GenericoDB.conectar();
 
         String plantilla = "insert into presidente (nombre,apellido,equipo_id_equipo) values (?,?,?)";
         PreparedStatement sentenciaPre = GenericoDB.getCon().prepareStatement(plantilla);
@@ -44,7 +47,14 @@ public class PresidenteDB {
       
        return insercion;
 } 
-          
+  /**
+   * con este metodo cosultamos un presidente
+   * @param nombre nombre del presidente(String)
+   * @param apellido apellido del presidente(String)
+   * @return retornamos el objeto
+   * @throws SQLException controlamos las excepciones por si hubiese algun tipo de error
+   * @throws Exception controlamos las excepciones por si hubiese algun tipo de error
+   */        
     public static Presidente consultarPresidente(String nombre,String apellido) throws SQLException, Exception{
  
         GenericoDB.conectar();
@@ -69,7 +79,15 @@ public class PresidenteDB {
           GenericoDB.cerrarCon();
           return null;
     }
-    public static int borrarPresi(String nombre, String apellido) throws SQLException, Exception{
+    /**
+     * con este metodo borramos un presidente
+     * @param nombre nombre del presidente a borrar(String)
+     * @param apellido apellido del presidente a boorar(String)
+     * @return retornamos el numero de finas afectadas
+     * @throws SQLException controlamos las excepciones por si hubiese algun tipo de error
+     * @throws Exception controlamos las excepciones por si hubiese algun tipo de error
+     */
+    public static boolean borrarPresi(String nombre, String apellido) throws SQLException, Exception{
 
             GenericoDB.conectar();
             String plantilla = "delete from presidente where nombre = ? and apellido = ?";
@@ -82,9 +100,15 @@ public class PresidenteDB {
 
              GenericoDB.cerrarCon();   
 
-            return delete;
+            return delete == 1;
     }
-    
+    /**
+     * consultamos el presidente del equipo
+     * @param idEquipo id del equipo a buscar(int)
+     * @return retornamos un arraylist de presidenet
+     * @throws SQLException controlamos las excepciones por si hubiese algun tipo de error
+     * @throws Exception controlamos las excepciones por si hubiese algun tipo de error
+     */
     public static ArrayList<Presidente> consultarPresidentesDelEquipo(int idEquipo) throws SQLException, Exception{
     
     GenericoDB.conectar();

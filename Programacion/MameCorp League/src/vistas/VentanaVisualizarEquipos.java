@@ -18,9 +18,8 @@ import modelo.Jugador;
 public class VentanaVisualizarEquipos extends javax.swing.JFrame {
      private static ArrayList<Equipo> listaEquipos;
      private static ArrayList<Jugador> listaJugadores;
-    /**
-     * Creates new form VentanaVisualizarEquipos
-     */
+    
+
     public VentanaVisualizarEquipos() throws Exception {
         setUndecorated(true);
         initComponents();
@@ -114,6 +113,7 @@ public class VentanaVisualizarEquipos extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        mVolver = new javax.swing.JMenu();
         mSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -584,6 +584,14 @@ public class VentanaVisualizarEquipos extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1970, 1090);
 
+        mVolver.setText("Volver");
+        mVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mVolverMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(mVolver);
+
         mSalir.setText("Salir");
         mSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -629,6 +637,12 @@ public class VentanaVisualizarEquipos extends javax.swing.JFrame {
     private void mSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mSalirMouseClicked
         System.exit(0);
     }//GEN-LAST:event_mSalirMouseClicked
+
+    private void mVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVolverMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        ControladorVista.mostrarVentanaUsuarios();
+    }//GEN-LAST:event_mVolverMouseClicked
     public  void llenarFieldsEquipo(){
         
     
@@ -702,18 +716,19 @@ public class VentanaVisualizarEquipos extends javax.swing.JFrame {
         tfJugador3_6.setText(listaEquipos.get(5).getListaJugadores().get(2).getNickname().toUpperCase());
            if (listaEquipos.get(5).getListaJugadores().size() > 3){
         tfJugador4_6.setText(listaEquipos.get(5).getListaJugadores().get(3).getNickname().toUpperCase());
-        tfJugador5_6.setText(listaEquipos.get(5).getListaJugadores().get(0).getNickname().toUpperCase());
+        tfJugador5_6.setText(listaEquipos.get(5).getListaJugadores().get(4).getNickname().toUpperCase());
         if (listaEquipos.get(5).getListaJugadores().size() == 6){
         tfJugador6_6.setText(listaEquipos.get(5).getListaJugadores().get(5).getNickname().toUpperCase());
     }}}
     
       public void llenarFieldsPresidente(){
+      
         tfPresidente1.setText(listaEquipos.get(0).getListaPresidentes().get(0).getNombre().toUpperCase());
-        tfPresidente1.setText(listaEquipos.get(1).getListaPresidentes().get(1).getNombre().toUpperCase());
-        tfPresidente1.setText(listaEquipos.get(2).getListaPresidentes().get(2).getNombre().toUpperCase());
-        tfPresidente1.setText(listaEquipos.get(3).getListaPresidentes().get(3).getNombre().toUpperCase());
-        tfPresidente1.setText(listaEquipos.get(4).getListaPresidentes().get(4).getNombre().toUpperCase());
-        tfPresidente1.setText(listaEquipos.get(5).getListaPresidentes().get(5).getNombre().toUpperCase());   
+        tfPresidente2.setText(listaEquipos.get(1).getListaPresidentes().get(0).getNombre().toUpperCase());
+        tfPresidente3.setText(listaEquipos.get(2).getListaPresidentes().get(0).getNombre().toUpperCase());
+        tfPresidente4.setText(listaEquipos.get(3).getListaPresidentes().get(0).getNombre().toUpperCase());
+        tfPresidente5.setText(listaEquipos.get(4).getListaPresidentes().get(0).getNombre().toUpperCase());
+        tfPresidente6.setText(listaEquipos.get(5).getListaPresidentes().get(0).getNombre().toUpperCase());   
     }
     
     public void estiloPaneles(){
@@ -774,6 +789,7 @@ public class VentanaVisualizarEquipos extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JMenu mSalir;
+    private javax.swing.JMenu mVolver;
     private javax.swing.JPanel panelOpaco1;
     private javax.swing.JPanel panelOpaco2;
     private javax.swing.JPanel panelOpaco3;

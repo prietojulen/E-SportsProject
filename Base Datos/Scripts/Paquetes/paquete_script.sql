@@ -10,7 +10,7 @@ CREATE OR REPLACE PACKAGE paquete_mamecorp AS
 --        FROM EQUIPO E, PRESIDENTE P
 --        WHERE P.EQUIPO_ID_EQUIPO(+) = E.ID_EQUIPO;     
 END paquete_mamecorp;
-
+/
 
 CREATE OR REPLACE PACKAGE BODY paquete_mamecorp AS
 
@@ -47,13 +47,15 @@ CREATE OR REPLACE PACKAGE BODY paquete_mamecorp AS
 		BEGIN
 		    DELETE FROM JORNADA; --eliminamos todas las jornadas antes de crear el calendario
 		    DELETE FROM LIGA; --eliminamos las ligas antes de crear el calendario
-		    INSERT INTO LIGA (nombre, fecha_inicio, fecha_fin,en_curso) VALUES ('MAMECORPLEAGUE', SYSDATE, NULL, 0); --Creamos la liga sin fecha fin
+		    INSERT INTO LIGA (id_liga,nombre, fecha_inicio, fecha_fin,en_curso) VALUES (01,'MAMECORPLEAGUE', SYSDATE, NULL, 0); --Creamos la liga sin fecha fin
+              commit;
 		    SELECT FECHA_INICIO INTO v_f_inicio_liga 
 		    FROM liga
-		    WHERE id_liga = 1;
+		    WHERE id_liga = 01;
 		    WHILE(v_num_jornadas < v_jornadas_totales) --Queremos 10 iteraciones dado que queremos 10 jornadas
 		        LOOP
-		            INSERT INTO JORNADA VALUES(v_increment_id_jornada, v_f_inicio_liga  + v_dias_next_jornada, v_f_inicio_liga  + 2 + v_dias_next_jornada, 1);
+		            INSERT INTO JORNADA (fecha_inicio,fecha_fin,liga_id_liga) VALUES (v_f_inicio_liga  + v_dias_next_jornada, v_f_inicio_liga  + 2 + v_dias_next_jornada, 1);
+                    commit;
 		            v_dias_next_jornada := v_dias_next_jornada + 7;
 		            v_num_jornadas := v_num_jornadas + 1;
 		            v_increment_id_jornada := v_increment_id_jornada + 1;
@@ -64,7 +66,9 @@ CREATE OR REPLACE PACKAGE BODY paquete_mamecorp AS
 		    WHERE ID_JORNADA = (SELECT MAX(ID_JORNADA) FROM JORNADA);
 		    UPDATE LIGA 
 		    SET FECHA_FIN = v_f_fin_liga
-		    WHERE ID_LIGA = 1;
+		    WHERE ID_LIGA = 01;
+                 commit;
+            
 	END generar_calendario;
 
    
